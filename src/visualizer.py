@@ -71,4 +71,4 @@ def draw_graph_with_shortest_path(
     plt.xlim(-0.1, 1.1)
     plt.ylim(-0.1, 1.1)
     plt.gca().set_aspect("equal", adjustable="box")
-    plt.show()
+    plt.savefig("./data/minimum_path.svg")
