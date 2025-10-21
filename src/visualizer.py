@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
+
 
 def draw_graph(G, points, fixed_node_indices):
     """
@@ -29,7 +31,9 @@ def draw_graph(G, points, fixed_node_indices):
     plt.show()
 
 
-def draw_graph_with_shortest_path(G, points, fixed_node_indices, path_color="green"):
+def draw_graph_with_shortest_path(
+    road: nx.Graph, points: np.ndarray, fixed_node_indices, path_color="green"
+):
     """
     Draws the graph and highlights the shortest path between two specified points.
 
@@ -43,20 +47,20 @@ def draw_graph_with_shortest_path(G, points, fixed_node_indices, path_color="gre
     target_node = fixed_node_indices[1]
 
     path_nodes = nx.shortest_path(
-        G, source=source_node, target=target_node, weight="distance"
+        road, source=source_node, target=target_node, weight="distance"
     )
     path_edges = list(zip(path_nodes[:-1], path_nodes[1:]))
 
     plt.figure(figsize=(8, 8))
     pos = {i: points[i] for i in range(points.shape[0])}
-    node_colors = ["blue"] * G.number_of_nodes()
+    node_colors = ["blue"] * road.number_of_nodes()
     for idx in fixed_node_indices:
         node_colors[idx] = "red"
 
-    nx.draw_networkx_nodes(G, pos, node_size=70, node_color=node_colors)
-    nx.draw_networkx_edges(G, pos, width=0.5, edge_color="gray", alpha=0.7)
+    nx.draw_networkx_nodes(road, pos, node_size=70, node_color=node_colors)
+    nx.draw_networkx_edges(road, pos, width=0.5, edge_color="gray", alpha=0.7)
     nx.draw_networkx_edges(
-        G,
+        road,
         pos,
         edgelist=path_edges,
         width=2.5,
