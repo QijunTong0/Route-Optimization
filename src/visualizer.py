@@ -32,7 +32,11 @@ def draw_graph(G, points, fixed_node_indices):
 
 
 def draw_graph_with_shortest_path(
-    road: nx.Graph, points: np.ndarray, fixed_node_indices, path_color="green"
+    road: nx.Graph,
+    points: np.ndarray,
+    fixed_node_indices,
+    path_color="green",
+    limit=100,
 ):
     """
     Draws the graph and highlights the shortest path between two specified points.
@@ -60,15 +64,10 @@ def draw_graph_with_shortest_path(
     nx.draw_networkx_nodes(road, pos, node_size=70, node_color=node_colors)
     nx.draw_networkx_edges(road, pos, width=0.5, edge_color="gray", alpha=0.7)
     nx.draw_networkx_edges(
-        road,
-        pos,
-        edgelist=path_edges,
-        width=2.5,
-        edge_color=path_color,
-        alpha=1.0,
+        road, pos, edgelist=path_edges, width=2.5, edge_color=path_color, alpha=1.0
     )
 
-    plt.xlim(-0.1, 1.1)
-    plt.ylim(-0.1, 1.1)
+    plt.xlim(-limit / 20, limit * 1.05)
+    plt.ylim(-limit / 20, limit * 1.05)
     plt.gca().set_aspect("equal", adjustable="box")
     plt.savefig("./data/minimum_path.svg")

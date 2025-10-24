@@ -1,6 +1,7 @@
 import numpy as np
 
-def generate_points(num_random_points=50):
+
+def generate_points(high=100, num_random_points=50):
     """
     Generates fixed and random points.
 
@@ -11,13 +12,13 @@ def generate_points(num_random_points=50):
         np.ndarray: Coordinates of all points.
         list: Indices of the fixed points.
     """
-    random_points = np.random.rand(num_random_points, 2)
+    random_points = np.random.randint(0, high, size=(num_random_points, 2))
     fixed_points = np.array(
         [
-            [0.0, 0.0],
-            [1.0, 1.0],
-            [1.0, 0.0],
-            [0.0, 1.0],
+            [0, 0],
+            [high, high],
+            [high, 0],
+            [0, high],
         ]
     )
     points = np.vstack([fixed_points, random_points])
