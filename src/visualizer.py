@@ -3,31 +3,39 @@ import networkx as nx
 import numpy as np
 
 
-def draw_graph(G, points, fixed_node_indices):
+def draw_graph_with_coordinates(graph: nx.Graph):
     """
-    Draws the graph.
+    NetworkXグラフの 'coordinate' 属性（Numpy配列）に基づいて
+    ノードを空間的に配置して描画する関数。
 
     Args:
-        G (nx.Graph): The NetworkX graph to draw.
-        points (np.ndarray): Coordinates of the nodes.
-        fixed_node_indices (list): Indices of the fixed points.
+        G (nx.Graph): 'coordinate' 属性を持つノードを含むグラフ。
     """
-    plt.figure(figsize=(8, 8))
-    pos = {i: points[i] for i in range(points.shape[0])}
-    node_colors = ["blue"] * points.shape[0]
-    for idx in fixed_node_indices:
-        node_colors[idx] = "red"
 
-    nx.draw(
-        G,
-        pos,
-        with_labels=False,
-        node_size=70,
-        node_color=node_colors,
-        width=0.5,
-        edge_color="gray",
+    # 1. 'coordinate' 属性から位置情報を辞書として取得
+    #    形式: {node_id: np.array([x, y]), ...}
+    pos = nx.get_node_attributes(graph, "coordinate")
+
+    # 2. 属性が存在するかチェック
+    if not pos:
+        raise ValueError
+
+    # 3. グラフの描画
+    plt.figure(figsize=(8, 8))  # 描画サイズを指定
+
+    nx.draw_networkx(
+        graph,
+        pos=pos,  # ここで取得した座標辞書を指定
+        with_labels=False,  # ノードIDを表示
+        node_color="blue",  # ノードの色
+        node_size=80,  # ノードのサイズ
+        edge_color="gray",  # エッジの色
+        font_size=10,
     )
-    plt.gca().set_aspect("equal", adjustable="box")
+
+    # 4. 座標プロットとして軸を正しく表示
+    plt.axis("equal")  # X軸とY軸のスケールを合わせる (重要)
+
     plt.show()
 
 

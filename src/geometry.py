@@ -31,4 +31,4 @@ def angle_between_lines(common: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> f
     # abs(cos(theta)) を使うことで、角度を鋭角（0～pi/2）に限定します
     angle_rad = np.arccos(np.abs(dot_product))
 
-    return angle_rad
+    return angle_rad / np.pi / 2
