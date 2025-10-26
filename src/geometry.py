@@ -29,6 +29,6 @@ def angle_between_lines(common: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> f
 
     # 4. 内積の絶対値を取り、arccosで角度を計算
     # abs(cos(theta)) を使うことで、角度を鋭角（0～pi/2）に限定します
-    angle_rad = np.arccos(np.abs(dot_product))
+    angle_rad = np.arccos(np.abs(dot_product)) * 180 / np.pi
 
-    return angle_rad / np.pi / 2
+    return angle_rad
