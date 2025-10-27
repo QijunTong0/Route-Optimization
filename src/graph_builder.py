@@ -32,6 +32,15 @@ def build_graph(points: np.ndarray):
 def expand_graph(road: nx.Graph, st_ind=0, ed_ind=1, cost=1, interp=0.05):
     road_epd = nx.Graph()
     for node in road.nodes:
+        if road.degree[node] == 1:
+            e1 = list(road.edges([node]))[0]
+            node1 = f"{node}_{e1[1]}"
+            road_epd.add_node(
+                node1,
+                coordinate=(1 - interp) * road.nodes[node]["coordinate"]
+                + interp * road.nodes[e1[1]]["coordinate"],
+            )
+
         for e1, e2 in combinations(road.edges([node]), 2):
             node1 = f"{node}_{e1[1]}"
             node2 = f"{node}_{e2[1]}"

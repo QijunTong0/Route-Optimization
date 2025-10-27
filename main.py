@@ -1,6 +1,4 @@
 # %%
-import matplotlib.animation as animation
-import matplotlib.pyplot as plt
 import numpy as np
 
 from src.graph_builder import build_graph
