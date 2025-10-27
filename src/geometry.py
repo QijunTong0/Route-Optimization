@@ -1,7 +1,9 @@
 import numpy as np
 
 
-def angle_between_lines(common: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> float:
+def angle_between_lines(
+    common: np.ndarray, p_st: np.ndarray, p_ed: np.ndarray
+) -> float:
     """
     2本の直線（それぞれ2点 p1-p2, p3-p4 で定義）がなす鋭角（小さい方）を
     ラジアン単位で返します。
@@ -15,8 +17,8 @@ def angle_between_lines(common: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> f
     """
 
     # 1. 各直線の方向ベクトルを計算
-    v1 = p1 - common
-    v2 = p2 - common
+    v1 = common - p_st
+    v2 = p_ed - common
 
     # 2. 方向ベクトルを正規化（単位ベクトル化）
     # np.linalg.norm はベクトルのL2ノルム（大きさ）を計算します
@@ -27,8 +29,6 @@ def angle_between_lines(common: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> f
     # u1・u2 = |u1||u2|cos(theta) = cos(theta)
     dot_product = np.clip(np.dot(u1, u2), -1.0, 1.0)
 
-    # 4. 内積の絶対値を取り、arccosで角度を計算
-    # abs(cos(theta)) を使うことで、角度を鋭角（0～pi/2）に限定します
-    angle_rad = np.arccos(np.abs(dot_product)) * 180 / np.pi
+    angle = np.arccos(dot_product) / np.pi
 
-    return angle_rad
+    return angle

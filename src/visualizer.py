@@ -58,7 +58,7 @@ def draw_graph_with_shortest_path(
         fixed_node_indices (list): Indices of the source_node and target_node [source_node, target_node].
         path_color (str): Color of the shortest path edges.
     """
-    # road = expand_graph(road, cost=cost_ratio)
+    road = expand_graph(road, cost=cost_ratio)
     path_nodes = nx.shortest_path(
         road, source=source_node, target=target_node, weight="weight"
     )
@@ -88,15 +88,11 @@ def draw_graph_with_shortest_path(
         turn_cost += road.edges[edge]["turn_cost"]
         distance_cost += road.edges[edge]["distance"]
     plt.title(
-        f"total_distance:{int(distance_cost)} m ; total_angle:{int(turn_cost)}°; cost_ratio:{round(cost_ratio,5)}"
+        f"total_distance:{int(distance_cost)} m ; total_angle:{int(turn_cost*180)}°; cost_ratio:{round(cost_ratio,5)}"
     )
     plt.savefig(f"data/anime/out_{suffix:03d}.png")
     plt.close()
 
-
-import matplotlib.pyplot as plt
-import networkx as nx
-import numpy as np
 
 from src.graph_builder import expand_graph
 
