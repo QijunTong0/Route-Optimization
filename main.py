@@ -9,7 +9,7 @@ from src.visualizer import draw_graph_with_shortest_path
 
 np.random.seed(1234)
 # 1. Generate points
-num_random_points = 100
+num_random_points = 500
 limit = 100
 points, fixed_node_indices = generate_points(
     high=limit, num_random_points=num_random_points
@@ -19,7 +19,7 @@ points, fixed_node_indices = generate_points(
 road = build_graph(points)
 
 # %%
-for i, val in enumerate(np.linspace(0, 2, num=60)):
+for i, val in enumerate(np.linspace(0, 0.2, num=600)):
     print(".", end="")
     draw_graph_with_shortest_path(
         road, source_node="s", target_node="t", cost_ratio=val, suffix=i

@@ -25,7 +25,7 @@ def angle_between_lines(common: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> f
 
     # 3. 単位ベクトルの内積（ドット積）を計算
     # u1・u2 = |u1||u2|cos(theta) = cos(theta)
-    dot_product = np.dot(u1, u2)
+    dot_product = np.clip(np.dot(u1, u2), -1.0, 1.0)
 
     # 4. 内積の絶対値を取り、arccosで角度を計算
     # abs(cos(theta)) を使うことで、角度を鋭角（0～pi/2）に限定します

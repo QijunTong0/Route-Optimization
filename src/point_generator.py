@@ -12,7 +12,7 @@ def generate_points(high=100, num_random_points=50):
         np.ndarray: Coordinates of all points.
         list: Indices of the fixed points.
     """
-    random_points = np.random.randint(0, high, size=(num_random_points, 2))
+    random_points = np.random.randint(1, high, size=(num_random_points, 2))
     fixed_points = np.array(
         [
             [0, 0],
